@@ -167,7 +167,7 @@
 
   <section id="backlog" class="view">
     <div class="cards">
-      <div class="card"><div class="label">백로그 항목</div><div class="value">1</div><div class="sub">개발팀 제안 및 추후 검토 항목</div></div>
+      <div class="card"><div class="label">백로그 항목</div><div class="value">4</div><div class="sub">개발팀 제안 및 추후 검토 항목</div></div>
       <div class="card"><div class="label">최근 추가</div><div class="value">5/15</div><div class="sub">View R 스카이박스 변경 기능</div></div>
     </div>
     <div class="section-title">개발팀 제안 · 백로그</div>
@@ -203,7 +203,10 @@ const deadlines = [
 ];
 
 const backlogItems = [
-  { date: '5/15', name: 'View R 스카이박스 변경 기능', prj: 'viewr', assignee: '개발팀 제안', status: '백로그', note: 'XR 환경에서 Skybox 변경 및 프리셋 전환 기능 검토' }
+  { date: '5/15', name: 'View R 스카이박스 변경 기능', prj: 'viewr', assignee: '개발팀 제안', status: '백로그', note: 'XR 환경에서 Skybox 변경 및 프리셋 전환 기능 검토' },
+  { date: '5/15', name: '문의하기 버튼 기능', prj: 'viewr', assignee: '개발팀 제안', status: '백로그', note: 'Studio · AVP 사용 중 장애/버그 발생 시 회사 문의 기능' },
+  { date: '5/15', name: 'Library 삭제 편의 기능', prj: 'viewr', assignee: '개발팀 제안', status: '백로그', note: '선택 삭제 · 전체 삭제 · 드래그 삭제 등 UX 개선' },
+  { date: '5/15', name: '모델 렌더링 전 대기 UX 개선', prj: 'viewr', assignee: '개발팀 제안', status: '백로그', note: '모델 로딩 전 비는 시간의 UX 및 피드백 개선' }
 ];
 
 const completedWorks = [
@@ -254,6 +257,9 @@ function runDataTests() {
   console.assert(people.every(p => Array.isArray(p.works)), 'each person needs works array');
   console.assert(deadlines.some(d => d.name === '현대 보안점검' && d.date === '7/6'), '7/6 Hyundai security check should exist');
   console.assert(backlogItems.some(d => d.name === 'View R 스카이박스 변경 기능'), 'Skybox backlog item should exist');
+  console.assert(backlogItems.some(d => d.name === '문의하기 버튼 기능'), 'Inquiry button backlog item should exist');
+  console.assert(backlogItems.some(d => d.name === 'Library 삭제 편의 기능'), 'Library delete UX backlog item should exist');
+  console.assert(backlogItems.some(d => d.name === '모델 렌더링 전 대기 UX 개선'), 'Rendering wait UX backlog item should exist');
 }
 
 function badge(text, bg, color) {
