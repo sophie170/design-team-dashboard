@@ -15,9 +15,9 @@
 
   <section id="overview" class="view active">
     <div class="cards">
-      <div class="card"><div class="label">진행중 프로젝트</div><div class="value">6</div><div class="sub">View R · 현대건설 · 전시회 · Landing page · Physical AI · 현대 UX BYOD</div></div>
+      <div class="card"><div class="label">진행중 프로젝트</div><div class="value">6</div><div class="sub">View R · 전시회 · Landing page · Physical AI · 현대 UX BYOD</div></div>
       <div class="card"><div class="label">가장 가까운 마감</div><div class="value">5/22</div><div class="sub">브로셔 프린트 발주</div></div>
-      <div class="card"><div class="label">이번 주 핵심</div><div class="value">5/26</div><div class="sub">View R LNK · AI 머테리얼</div></div>
+      <div class="card"><div class="label">이번 주 핵심</div><div class="value">5/26</div><div class="sub">View R LNK · 현대건설 · AI 머테리얼</div></div>
     </div>
     <div class="section-title">다가오는 프로젝트 마감</div>
     <div class="section-help">스프린트는 14일 고정 cadence로 운영하며, 휴일은 일정 변경이 아닌 capacity 조정으로 반영합니다.</div>
@@ -49,7 +49,7 @@ const PROJECTS={
 const P=PROJECTS;
 
 const deadlines=[
-  {date:'5/29',name:'현대건설 디자인 완료',prj:'hyundai',assignee:'Jane',status:'예정',note:'Smart XR 안전교육 시뮬레이터'},
+  
   {date:'5/30',name:'Landing page 적용 완료',prj:'landing',assignee:'Sophie',status:'예정',note:'다국어/로케일 UI 적용'},
   {date:'6/1',name:'로드하우징 디자이너 방문',prj:'exhibition',assignee:'외부 방문',status:'미팅',note:'로드하우징 디자이너 방문 예정'},
   {date:'6/1-11/30',name:'현대 UX 후석 BYOD 프로젝트',prj:'byod',assignee:'Sophie · Luke',status:'예정',note:'마이현대 앱 기반 후석 멀티디바이스 UX 프로젝트'},
@@ -75,7 +75,7 @@ const backlogItems=[
 ];
 
 const completedWorks=[
-  {date:'5/15',name:'Hak 명함 디자인 프로젝트',prj:'viewr',assignee:'Sophie',status:'완료',note:'View R 명함 디자인 완료'},
+  {date:'5/26',name:'ViewR AI머테리얼 작업 완료',prj:'viewr',assignee:'Jane',status:'완료',note:'Sprint 10 AI Material 디자인 완료'},{date:'5/15',name:'Hak 명함 디자인 프로젝트',prj:'viewr',assignee:'Sophie',status:'완료',note:'View R 명함 디자인 완료'},
   {date:'5/18',name:'AWE 전시 디자인 완료',prj:'exhibition',assignee:'Sophie',status:'완료',note:'AWE 전시 디자인 전체 완료'},
   {date:'5/18',name:'HMI 전시 디자인 완료',prj:'exhibition',assignee:'Sophie',status:'완료',note:'Car HMI 전시 디자인 전체 완료'},
   {date:'5/15',name:'현대건설 XR 안전교육 UI 플로우',prj:'hyundai',assignee:'Sophie',status:'완료',note:'UI 플로우 설계 완료'},
@@ -100,12 +100,12 @@ const people=[
     {title:'현대 UX 후석 BYOD PM',meta:'현대 UX BYOD · 6/1~11/30 예정 프로젝트',startDate:'2026-06-01'}
   ]},
   {name:'Jane',role:'UX/UI Designer',bg:'#f0eeff',color:'#5145b8',works:[
-    {title:'ViewR AI머테리얼 작업',meta:'View R · Sprint 10 마감',dueDate:'5/26',prj:'viewr'},
+    
     {title:'현대건설 디자인',meta:'현대건설',dueDate:'5/29',prj:'hyundai'}
   ]},
   {name:'Luke',role:'3D · Motion · Video',bg:'#eaf4ff',color:'#1c65b4',works:[
     {title:'AI Material · Animation UI 관련 영상화',meta:'View R · Sprint 11 (6/2) 마감 · Jane AI Material 디자인 완료 후 Luke 영상 작업 진행',dueDate:'6/2',prj:'viewr'},
-    {title:'AWE 전시마케팅용 영상디자인',meta:'전시회 · 6/2 완료 목표 · 추가 시간 필요 시 공유 예정',dueDate:'6/2',prj:'exhibition'},
+    {title:'AWE 전시마케팅용 영상디자인',meta:'전시회 · 6/5 완료 목표 · 추가 시간 필요 시 공유 예정',dueDate:'6/5',prj:'exhibition'},
     {title:'구글 드라이브 모델파일 정리',meta:'개발팀 요청 · 5/29 전달 예정',dueDate:'5/29',prj:'exhibition'},
     {title:'현대 UX BYOD AI 영상 제작',meta:'현대 UX BYOD · AI 기반 영상 제작 예정'}
   ]}
@@ -129,7 +129,7 @@ function getSprint(y,m,d){const cur=new Date(y,m,d);return sprintRanges.find(s=>
 function isSprintStart(sprint,y,m,d){return sprint&&sprint.start.getFullYear()===y&&sprint.start.getMonth()===m&&sprint.start.getDate()===d}
 function renderCalendar(){const year=2026;const month=currentMonth;document.getElementById('calendar-title').textContent=year+'년 '+(month+1)+'월 캘린더';const dayNames=['일','월','화','수','목','금','토'];const firstOffset=new Date(year,month,1).getDay();const days=new Date(year,month+1,0).getDate();let html=dayNames.map(day=>'<div class="cal-head">'+day+'</div>').join('');for(let i=0;i<firstOffset;i++)html+='<div class="cal-cell empty"></div>';const now=new Date();const teamWorkEvents=getTeamWorkEvents();for(let day=1;day<=days;day++){const isToday=year===now.getFullYear()&&month===now.getMonth()&&day===now.getDate();const sprint=getSprint(year,month,day);const dayEvents=[...deadlines.filter(item=>{const key=dateKey(item.date);return key&&key.month===month&&key.day===day}),...teamWorkEvents.filter(item=>{const key=dateKey(item.date);return key&&key.month===month&&key.day===day}),...completedWorks.filter(item=>{const key=dateKey(item.date);return key&&key.month===month&&key.day===day}).map(item=>({...item,completed:true}))];html+='<div class="cal-cell '+(isToday?'today':'')+'"><div class="cal-date">'+day+(isToday?' · 오늘':'')+'</div>'+(isSprintStart(sprint,year,month,day)?'<div class="sprint-chip '+(sprint.name==='Sprint 9'?'current':'')+'">'+sprint.name+'</div>':'')+dayEvents.map(item=>{const p=P[item.prj];const bg=item.completed?'rgba(243,243,240,0.55)':item.teamWork?'#fffdf6':p.bg;const text=item.completed?'rgba(85,85,85,0.72)':item.teamWork?'#7a5700':p.text;const opacity=item.completed?'0.68':'1';const prefix=item.completed?'✓ ':item.teamWork?'👤 ':'';return '<div class="cal-event" style="background:'+bg+';color:'+text+';opacity:'+opacity+'"><div class="cal-event-title">'+prefix+item.name+'</div><div class="cal-event-meta">'+item.assignee+'</div></div>'}).join('')+'</div>'}document.getElementById('calendar-grid').innerHTML=html;document.querySelectorAll('.month-btn').forEach(btn=>btn.classList.toggle('active',Number(btn.dataset.month)===month))}
 function renderProject(key){const unified=getUnifiedProjectEvents();const list=key==='all'?unified:unified.filter(item=>item.prj===key);const title=key==='all'?'전체 프로젝트 마감':P[key].label+' 마감';document.getElementById('project-title').textContent=title;document.getElementById('project-title').style.color=key==='all'?'#1f1f1f':P[key].text;renderDeadlines('project-list',sortEventsByDate(list));document.querySelectorAll('.project-btn').forEach(btn=>{const active=btn.dataset.project===key;const p=key==='all'?{color:'#f0a000',bg:'#fffdf6',text:'#111'}:P[key];btn.classList.toggle('active',active);btn.style.borderColor=active?p.color:'#cfcfca';btn.style.background=active?p.bg:'#fff';btn.style.color=active?p.text:'#111'})}
-function runDataTests(){console.assert(Array.isArray(deadlines),'deadlines must be an array');console.assert(deadlines.every(item=>P[item.prj]),'deadline project keys must exist');console.assert(backlogItems.every(item=>P[item.prj]),'backlog project keys must exist');console.assert(completedWorks.every(item=>P[item.prj]),'completed project keys must exist');console.assert(people.every(person=>Array.isArray(person.works)),'each person needs works array');console.assert(P.physicalai.label==='Physical AI','Physical AI project syntax should be valid');console.assert(P.byod.label==='현대 UX BYOD','BYOD project should exist');console.assert(getUnifiedProjectEvents().some(item=>item.name==='View R LNK 납품'&&item.assignee==='Sophie'),'Sophie View R LNK should sync to unified events');console.assert(getUnifiedProjectEvents().some(item=>item.name==='ViewR AI머테리얼 작업'&&item.assignee==='Jane'),'Jane AI Material should sync to unified events');console.assert(getUnifiedProjectEvents().some(item=>item.name==='AWE 전시마케팅용 영상디자인'&&item.assignee==='Luke'),'Luke video work should sync to unified events');console.assert(getUnifiedProjectEvents().some(item=>item.name==='구글 드라이브 모델파일 정리'&&item.assignee==='Luke'),'Luke Google Drive organization task should sync to unified events');}
+function runDataTests(){console.assert(Array.isArray(deadlines),'deadlines must be an array');console.assert(deadlines.every(item=>P[item.prj]),'deadline project keys must exist');console.assert(backlogItems.every(item=>P[item.prj]),'backlog project keys must exist');console.assert(completedWorks.every(item=>P[item.prj]),'completed project keys must exist');console.assert(people.every(person=>Array.isArray(person.works)),'each person needs works array');console.assert(P.physicalai.label==='Physical AI','Physical AI project syntax should be valid');console.assert(P.byod.label==='현대 UX BYOD','BYOD project should exist');console.assert(getUnifiedProjectEvents().some(item=>item.name==='View R LNK 납품'&&item.assignee==='Sophie'),'Sophie View R LNK should sync to unified events');console.assert(completedWorks.some(item=>item.name==='ViewR AI머테리얼 작업 완료'&&item.assignee==='Jane'),'Jane AI Material completion should exist');console.assert(getUnifiedProjectEvents().some(item=>item.name==='AWE 전시마케팅용 영상디자인'&&item.assignee==='Luke'),'Luke video work should sync to unified events');console.assert(getUnifiedProjectEvents().some(item=>item.name==='구글 드라이브 모델파일 정리'&&item.assignee==='Luke'),'Luke Google Drive organization task should sync to unified events');console.assert(getUnifiedProjectEvents().filter(item=>item.name.includes('현대건설 디자인')).length===1,'Hyundai design task should not be duplicated');}
 function initDashboard(){runDataTests();const now=new Date();document.getElementById('today-title').textContent=(now.getMonth()+1)+'/'+now.getDate();document.getElementById('today-year').textContent=now.getFullYear()+'년';const unified=getUnifiedProjectEvents();renderDeadlines('upcoming-list',unified.slice(0,8));renderDeadlines('project-list',unified);renderPeople('team-list');renderDeadlines('completed-list',sortEventsByDate(completedWorks));renderDeadlines('backlog-list',sortEventsByDate(backlogItems));renderCalendar();renderProject('all');document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(item=>item.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.view').forEach(view=>view.classList.remove('active'));document.getElementById(btn.dataset.view).classList.add('active')}));document.querySelectorAll('.project-btn').forEach(btn=>btn.addEventListener('click',()=>renderProject(btn.dataset.project)));document.querySelectorAll('.month-btn').forEach(btn=>btn.addEventListener('click',()=>{currentMonth=Number(btn.dataset.month);renderCalendar()}))}
 initDashboard();
 </script>
